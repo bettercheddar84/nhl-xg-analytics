@@ -51,15 +51,37 @@ Each side has its own README with deeper detail:
 
 ---
 
-## Getting started
+## Try the model in 30 seconds
 
-### Backend
+The trained xG model **ships in this repo** (a ~1 MB XGBoost model), so you can score shots immediately — no data download, no server, no GPU:
+
 ```bash
 cd backend
 python -m venv .venv
 # Windows: .venv\Scripts\activate   |   macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt        # or: pip install xgboost scikit-learn pandas joblib
+python predict.py
 ```
+
+Output:
+```
+NHL Expected Goals (xG) — sample predictions
+====================================================
+ 92.5% xG   Slot one-timer off a rebound (high danger)
+ 26.5% xG   Point slap shot from the blue line (low danger)
+ 34.5% xG   Sharp-angle wrister, off the rush
+====================================================
+```
+
+Score your own shot from Python:
+```python
+from predict import predict_xg
+predict_xg(arenaAdjustedShotDistance=8, shotAngleAdjusted=5, shotRebound=1)  # -> xG probability
+```
+
+The model takes 42 features (shot geometry, shot type, rebound/rush context, on-ice strength, and shooter/goalie talent). The full list is in [backend/models/production/features.txt](backend/models/production/features.txt), with importances in [feature_importance.csv](backend/models/production/feature_importance.csv).
+
+> ℹ️ **A larger model is also available.** This repo ships the lightweight **single-XGBoost** model for instant, portable inference. The project also trained a heavier **AutoGluon ensemble** (XGBoost + LightGBM + CatBoost + neural nets, ~260 MB) that squeezes out additional accuracy and powers the full FastAPI server in [backend/api/](backend/api/). It's too large to commit here — open an issue if you'd like access or see [backend/train/train_autogluon.py](backend/train/train_autogluon.py) to regenerate it.
 
 ### Frontend
 ```bash
@@ -70,9 +92,9 @@ npm run dev
 
 ---
 
-## Note on data & models
+## Note on data & full models
 
-Raw datasets, processed CSVs, and trained model binaries (`.pkl`) are **not** included in this repository — they are large and are regenerated from the NHL API via the scripts in [backend/scripts/](backend/scripts/) and [backend/train/](backend/train/). See [backend/training_docs/](backend/training_docs/) for the data dictionary and feature documentation.
+Raw datasets, processed CSVs, and the large model binaries (the AutoGluon ensemble, neural models) are **not** included — they are regenerated from the NHL API via the scripts in [backend/scripts/](backend/scripts/) and [backend/train/](backend/train/). Only the lightweight production xG model is bundled. See [backend/training_docs/](backend/training_docs/) for the data dictionary and feature documentation.
 
 ## License
 

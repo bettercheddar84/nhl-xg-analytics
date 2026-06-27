@@ -23,6 +23,15 @@ models/
 *.h5
 catboost_info/
 
+# Exception: ship the lightweight (~1 MB) production XGBoost model so the
+# repo is runnable out of the box (see backend/predict.py).
+!backend/models/
+!backend/models/production/
+!backend/models/production/xg_model_nhl.pkl
+!backend/models/production/features.txt
+!backend/models/production/feature_importance.csv
+!backend/models/production/model_metadata.pkl
+
 # ---------- Node / frontend ----------
 node_modules/
 frontend/dist/
