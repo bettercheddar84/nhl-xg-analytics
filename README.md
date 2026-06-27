@@ -1,8 +1,21 @@
-# NHL Expected Goals (xG) Analytics
+# 🏒 NHL Expected Goals (xG) Analytics
+
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![XGBoost](https://img.shields.io/badge/XGBoost-EB5E28?logo=xgboost&logoColor=white)
+![Vue 3](https://img.shields.io/badge/Vue.js-3-4FC08D?logo=vuedotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 
 A machine-learning system for predicting **Expected Goals (xG)** in NHL hockey — pairing a Python/FastAPI modeling backend with a Vue 3 visualization frontend. Originally built as a hockey analytics R&D project centered on the Pittsburgh Penguins.
 
 > **xG (Expected Goals)** estimates the probability that a given shot becomes a goal, based on its context — location, angle, shot type, rebounds, rushes, pre-shot passing, goalie workload, and game state.
+
+## Shot-location heatmap
+
+Density of ~330k NHL shots across two seasons — note the high-frequency clustering in the slot directly in front of each net, exactly where xG is highest.
+
+![Shot location heatmap](assets/shot_heatmap.png)
 
 ---
 
