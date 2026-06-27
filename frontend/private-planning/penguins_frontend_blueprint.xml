@@ -1,0 +1,168 @@
+<PenguinsFrontendProject version="1.0" created="2025-05-27">
+    
+    <!-- PROJECT OVERVIEW -->
+    <ProjectOverview>
+        <name>Pittsburgh Penguins xG Visualizer</name>
+        <description>Vue.js frontend for hockey analytics visualization</description>
+        <status>Phase 2 In Progress - Core visualization complete</status>
+        <tech_stack>
+            <framework>Vue 3 with TypeScript</framework>
+            <build_tool>Vite</build_tool>
+            <styling>CSS (Tailwind ready)</styling>
+            <state>Pinia</state>
+            <routing>Vue Router</routing>
+        </tech_stack>
+    </ProjectOverview>
+
+    <!-- COMPLETED COMPONENTS -->
+    <CompletedComponents>
+        <Component path="src/components/RinkVisualization.vue" status="complete">
+            <description>Main interactive rink with xG predictions</description>
+            <features>
+                <feature>Interactive shot placement</feature>
+                <feature>Real-time xG calculation</feature>
+                <feature>Shot type and modifier controls</feature>
+                <feature>Heat map visualization</feature>
+                <feature>Two modes: Interactive and NHL Data</feature>
+            </features>
+            <dependencies>
+                <dependency>axios</dependency>
+                <dependency>NHLRink.vue</dependency>
+                <dependency>rinkDimensions.ts</dependency>
+            </dependencies>
+        </Component>
+        
+        <Component path="src/components/NHLRink.vue" status="complete">
+            <description>Accurate NHL rink SVG component</description>
+            <features>
+                <feature>Official NHL dimensions (200ft x 85ft)</feature>
+                <feature>Proper zone markings and circles</feature>
+                <feature>Shot marker visualization</feature>
+                <feature>Click event handling</feature>
+            </features>
+        </Component>
+        
+        <Component path="src/views/RinkView.vue" status="complete">
+            <description>Container view for rink visualization</description>
+        </Component>
+        
+        <Component path="src/views/AnalyticsView.vue" status="placeholder">
+            <description>Future analytics dashboard</description>
+            <planned_features>
+                <feature>Player impact scores</feature>
+                <feature>Line chemistry analysis</feature>
+                <feature>Game momentum tracker</feature>
+                <feature>Shot pattern analysis</feature>
+            </planned_features>
+        </Component>
+    </CompletedComponents>
+
+    <!-- SERVICES AND UTILITIES -->
+    <Services>
+        <Service path="src/services/penguinsAPI.ts" status="complete">
+            <description>API client for backend communication</description>
+            <endpoints>
+                <endpoint method="POST" path="/predict/expected-goals">Single shot prediction</endpoint>
+                <endpoint method="POST" path="/predict/batch">Batch predictions</endpoint>
+                <endpoint method="GET" path="/model/info">Model metadata</endpoint>
+                <endpoint method="GET" path="/health">Health check</endpoint>
+            </endpoints>
+        </Service>
+        
+        <Service path="src/services/nhlDataService.ts" status="scaffold">
+            <description>NHL data integration service</description>
+            <planned_integrations>
+                <integration>NHL official API</integration>
+                <integration>MoneyPuck data</integration>
+                <integration>Live game feeds</integration>
+            </planned_integrations>
+        </Service>
+    </Services>
+
+    <!-- TYPE DEFINITIONS -->
+    <TypeDefinitions>
+        <TypeFile path="src/types/rinkDimensions.ts" status="complete">
+            <exports>
+                <export>NHLRinkDimensions interface</export>
+                <export>NHL_RINK constants</export>
+                <export>nhlToSvg() converter</export>
+                <export>svgToNhl() converter</export>
+                <export>calculateShotMetrics() function</export>
+            </exports>
+        </TypeFile>
+    </TypeDefinitions>
+
+    <!-- ROUTING -->
+    <Routes>
+        <Route path="/" component="HomeView" status="default" />
+        <Route path="/rink" component="RinkView" status="complete" />
+        <Route path="/analytics" component="AnalyticsView" status="placeholder" />
+    </Routes>
+
+    <!-- DEPENDENCIES -->
+    <Dependencies>
+        <Production>
+            <package name="vue" version="^3.5.13" />
+            <package name="vue-router" version="^4.5.0" />
+            <package name="axios" version="^1.9.0" />
+            <package name="pinia" version="^2.3.0" />
+        </Production>
+        <Development>
+            <package name="@vitejs/plugin-vue" version="^5.2.1" />
+            <package name="typescript" version="~5.6.0" />
+            <package name="vite" version="^6.0.3" />
+            <package name="vitest" version="^2.1.8" />
+            <package name="eslint" version="^9.17.0" />
+        </Development>
+    </Dependencies>
+
+    <!-- CURRENT ISSUES -->
+    <Issues>
+        <Issue status="resolved" priority="high">
+            <description>Import path for rinkDimensions.ts</description>
+            <solution>Fixed @ alias to @/types/rinkDimensions</solution>
+        </Issue>
+        <Issue status="open" priority="low">
+            <description>ESLint warnings for unused imports</description>
+            <solution>Clean up unused imports or implement functionality</solution>
+        </Issue>
+    </Issues>
+
+    <!-- NEXT STEPS -->
+    <NextSteps>
+        <Step priority="1">
+            <task>Polish rink visualization CSS</task>
+            <description>Improve responsive design and mobile experience</description>
+        </Step>
+        <Step priority="2">
+            <task>Implement real NHL data integration</task>
+            <description>Connect to live NHL API for actual game data</description>
+        </Step>
+        <Step priority="3">
+            <task>Add player shot charts</task>
+            <description>Individual player analytics and tendencies</description>
+        </Step>
+        <Step priority="4">
+            <task>Build analytics dashboard</task>
+            <description>Complete the AnalyticsView with charts and metrics</description>
+        </Step>
+        <Step priority="5">
+            <task>Deploy to production</task>
+            <description>Set up CI/CD and deploy to Vercel/Railway</description>
+        </Step>
+    </NextSteps>
+
+    <!-- API INTEGRATION STATUS -->
+    <APIIntegration>
+        <backend url="http://localhost:8000" status="connected">
+            <health>Operational</health>
+            <latency>~50ms local</latency>
+            <cors>Enabled</cors>
+        </backend>
+        <endpoints_tested>
+            <endpoint path="/predict/expected-goals" status="working" />
+            <endpoint path="/model/info" status="working" />
+            <endpoint path="/health" status="working" />
+        </endpoints_tested>
+    </APIIntegration>
+</PenguinsFrontendProject>

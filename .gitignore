@@ -1,0 +1,48 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+penguins_env/
+ENV/
+
+# ---------- Data & models (large, regenerated from NHL API) ----------
+data/
+models/
+*.csv
+*.pkl
+*.parquet
+*.joblib
+*.h5
+catboost_info/
+
+# ---------- Node / frontend ----------
+node_modules/
+frontend/dist/
+*.local
+
+# ---------- Secrets / local config ----------
+.env
+.env.*
+!.env.example
+secrets.json
+api_keys.py
+*.key
+*.pem
+
+# ---------- Editor / OS ----------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+
+# ---------- Claude local settings ----------
+.claude/settings.local.json
