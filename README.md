@@ -17,6 +17,12 @@ Density of ~330k NHL shots across two seasons — note the high-frequency cluste
 
 ![Shot location heatmap](assets/shot_heatmap.png)
 
+## Interactive rink visualizer
+
+The Vue frontend renders shots on a regulation NHL rink. Click anywhere in **Interactive Mode** to score a shot location, or load **NHL Game Data** to plot a game's shots — each marker colored by xG (blue = low danger → red = high danger).
+
+![Interactive xG rink visualizer](assets/rink-ui.png)
+
 ---
 
 ## Repository structure
@@ -80,6 +86,24 @@ predict_xg(arenaAdjustedShotDistance=8, shotAngleAdjusted=5, shotRebound=1)  # -
 ```
 
 The model takes 42 features (shot geometry, shot type, rebound/rush context, on-ice strength, and shooter/goalie talent). The full list is in [backend/models/production/features.txt](backend/models/production/features.txt), with importances in [feature_importance.csv](backend/models/production/feature_importance.csv).
+
+### Or serve it over HTTP
+
+A lightweight FastAPI server ([backend/serve.py](backend/serve.py)) exposes the same model as a REST endpoint:
+
+```bash
+cd backend
+uvicorn serve:app --reload
+```
+
+```bash
+curl -X POST http://127.0.0.1:8000/predict \
+     -H "Content-Type: application/json" \
+     -d '{"arenaAdjustedShotDistance": 8, "shotAngleAdjusted": 5, "shotRebound": 1}'
+# -> {"xg": 0.925, "xg_pct": "92.5%", ...}
+```
+
+Interactive API docs are auto-generated at `http://127.0.0.1:8000/docs`. Every field is optional and falls back to a league-average default, and `GET /features` lists them all. *(This serves the lightweight model; the original [backend/api/](backend/api/) server uses the larger AutoGluon ensemble.)*
 
 > ℹ️ **A larger model is also available.** This repo ships the lightweight **single-XGBoost** model for instant, portable inference. The project also trained a heavier **AutoGluon ensemble** (XGBoost + LightGBM + CatBoost + neural nets, ~260 MB) that squeezes out additional accuracy and powers the full FastAPI server in [backend/api/](backend/api/). It's too large to commit here — open an issue if you'd like access or see [backend/train/train_autogluon.py](backend/train/train_autogluon.py) to regenerate it.
 
