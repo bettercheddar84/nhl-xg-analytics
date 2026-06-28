@@ -13,7 +13,7 @@ A machine-learning system for predicting **Expected Goals (xG)** in NHL hockey �
 
 ## Shot-location heatmap
 
-Density of ~330k NHL shots across two seasons — note the high-frequency clustering in the slot directly in front of each net, exactly where xG is highest.
+Density of ~313k shots from the 2024-25 NHL season, drawn on a regulation rink — the heavy clustering in the slot directly in front of each net is exactly where xG is highest.
 
 ![Shot location heatmap](assets/shot_heatmap.png)
 
